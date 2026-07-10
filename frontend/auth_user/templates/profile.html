@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% block content %}
+<center>
+    <h1>Profile Page</h1>
+    <h2>My Profile</h2>
+   {% if request.user.profile.profile_picture %}
+    <img src="{{ request.user.profile.profile_picture.url }}"
+         width="150"
+         height="150"
+         alt="Profile Picture">
+{% endif %}<br><br>
+    <p><b>Username:</b> {{ request.user.username }}</p><br>
+    <p><b>Name:</b> {{ request.user.first_name }} {{ request.user.last_name }}</p><br>
+    <p><b>Email:</b> {{ request.user.email }}</p><br>
+    <a href="{% url 'reset' %}">Reset Password</a>
+    <br>
+    <br>
+    <a href="{% url 'update' %}">Update Profile</a>
+</center>
+{% endblock content %}
