@@ -19,5 +19,9 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('api/',include('lmsadmin.urls')),
+=======
+    
+>>>>>>> 8d2ef4a0d0e828a894eb9d11b454d6b057c53e6f
 ]
