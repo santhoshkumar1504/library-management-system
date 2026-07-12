@@ -1,0 +1,86 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+<title>LMS | Home</title>
+<link rel="stylesheet" href="{% static 'styles/basestyle.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <section class="hero">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <span class="hero-tag">
+                    <i class="bi bi-book-half"></i>
+                    Digital Library
+                </span>
+
+                <h1>Welcome to the Library Management System</h1>
+                <p class="subtitle">
+                    Empowering Learning Through Smart Library Management
+                </p>
+                <p class="description">
+                    Welcome to the Library Management System (LMS), your modern platform for discovering, borrowing, and
+                    managing books with ease. Access thousands of books, journals, and digital resources from anywhere.
+                </p>
+                <button class="btn btn-dark explore-btn">
+                    Explore Library
+                </button>
+            </div>
+            <div class="col-lg-5">
+                <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=900"
+                    class="img-fluid hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Books -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
+
+        <h2 class="section-title">
+            Available Books
+        </h2>
+        <button class="btn btn-outline-dark">
+            View All
+        </button>
+    </div>
+
+    <div class="row g-4">
+        {% for i in data %}
+        {% if forloop.counter < 5 %}
+        <div class="col-md-4 col-lg-3">
+            <div class="book-card">
+                <div>
+
+                    <img class="card-img-top"
+                        src="http://localhost:8000/static{{i.cover_image}}">
+                </div>
+                <div class="book-content">
+                    <span class="category">
+                        {{i.category.name}}
+                    </span>
+                    <h5>{{i.title|truncatechars:25}}</h5>
+                    <p class="author">
+                        <i class="bi bi-person-fill"></i>
+                        {{i.authors.name|default:"N/A"}}
+                    </p>
+                    <a href="{% url 'details' i.id %}" class="btn btn-dark w-100 stretched-link">
+                        <i class="bi bi-book"></i>
+                        Borrow Book
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+

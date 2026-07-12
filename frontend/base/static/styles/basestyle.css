@@ -1,0 +1,188 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f5f7fa;
+    font-family:'Poppins',sans-serif;
+    color:#222;
+}
+
+/* HERO */
+
+.hero{
+
+    background:#fff;
+    border-radius:20px;
+    padding:70px;
+    box-shadow:0 12px 40px rgba(0,0,0,.07);
+
+}
+
+.hero-tag{
+
+    display:inline-block;
+    background:#eef3ff;
+    color:#2348b8;
+    padding:8px 18px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:25px;
+
+}
+
+.hero h1{
+
+    font-size:3rem;
+    font-weight:700;
+    color:#111827;
+
+}
+
+.subtitle{
+
+    font-size:20px;
+    color:#555;
+    margin:20px 0;
+
+}
+
+.description{
+
+    line-height:1.9;
+    color:#666;
+    margin-bottom:35px;
+
+}
+
+.explore-btn{
+
+    padding:14px 35px;
+    border-radius:12px;
+    font-weight:500;
+
+}
+
+.hero-image{
+
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+
+}
+
+/* SECTION TITLE */
+
+.section-title{
+
+    font-weight:700;
+    font-size:2rem;
+    color:#111827;
+
+}
+
+
+.book-card{
+    background:#c2c0c0;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.book-card:hover{
+    cursor: pointer;
+    transform:translateY(-10px);
+    box-shadow:0 25px 50px rgba(0,0,0,.15);
+
+}
+
+.book-card img{
+    height:200px;
+    object-fit:cover;
+
+}
+
+.book-content{
+    padding:15px;
+}
+
+.category{
+
+    display:inline-block;
+    background:#eef3ff;
+    color:#2348b8;
+    padding:6px 12px;
+    border-radius:25px;
+    font-size:13px;
+    margin-bottom:10px;
+
+}
+
+.book-content h5{
+
+    font-size:20px;
+    font-weight:600;
+    color:#111827;
+    margin-bottom:10px;
+
+}
+
+.author{
+
+    color:#666;
+    margin-bottom:22px;
+
+}
+
+.book-content button{
+    padding:8px;
+    border-radius:10px;
+    font-weight:500;
+
+}
+
+.book-content button:hover{
+    transform:scale(1.02);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+.hero{
+
+padding:40px;
+
+}
+
+.hero h1{
+
+font-size:2.3rem;
+
+}
+
+.hero-image{
+
+margin-top:35px;
+
+}
+
+}
+
+@media(max-width:576px){
+.hero{
+padding:30px 20px;
+}
+
+.hero h1{
+font-size:2rem;
+}
+
+.section-title{
+font-size:1.6rem;
+}
+
+}
