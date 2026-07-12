@@ -1,0 +1,26 @@
+
+{% extends 'main.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <h2>Student Registration</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+    
+        {{ form.as_p }}
+    
+        <button type="submit" class="btn btn-success">
+            Register
+        </button>
+    
+    </form>
+    
+    {{ message }}
+</div>
+{% endblock %}
+
+

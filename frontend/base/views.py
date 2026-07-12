@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
 
-root='http://127.0.0.1:8000/api/'
+root='http://127.0.0.1:8000/api/admin/'
 
 def home(request):
     api=root+'books/'
