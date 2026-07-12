@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Register</title>
+    <title>Student Login</title>
 </head>
 <body>
 
-<h2>Student Registration</h2>
+<h2>Student Login</h2>
 
 <form method="POST">
     {% csrf_token %}
@@ -13,11 +13,11 @@
     {{ form.as_p }}
 
     <button type="submit">
-        Register
+        Login
     </button>
 
 </form>
-
+<a href="{% url 'forgot_password' %}">Forgot Password</a>
 {{ message }}
 
 </body>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Logout</title>
+</head>
+<body>
+
+<button onclick="logout()">Logout</button>
+
+<script>
+
+function logout(){
+
+const token = localStorage.getItem("access");
+
+fetch("http://127.0.0.1:8000/api/logout/",{
+
+method:"POST",
+
+headers:{
+"Authorization":"Bearer "+token
+}
+
+})
+
+.then(response=>response.json())
+
+.then(data=>{
+
+alert(data.message);
+
+localStorage.removeItem("access");
+
+window.location="login.html";
+
+})
+
+}
+
+</script>
+
+</body>
+</html>

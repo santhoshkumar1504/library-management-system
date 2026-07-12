@@ -1,148 +1,316 @@
-from django.shortcuts import render
-from django.shortcuts import render,redirect
-# from django.contrib.auth.models import User
-from django.contrib import messages
-# from django.contrib.auth import authenticate,login,logout
-# from django.contrib.auth import update_session_auth_hash
 import requests
+from django.shortcuts import render, redirect
+from .forms import *
+
 
 def register(request):
-    if request.method == 'POST':
-        print(request.POST)
-        fname = request.POST.get('first_name')
-        lname = request.POST.get('last_name')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        if len(password) < 8:
-            messages.error(request,"Password must be at least 8 characters long!!!")
-            return redirect('register')
-        if not any(c.isupper() for c in password):
-            messages.error(request,"Password must contain at least one uppercase letter!!!")
-            return redirect('register')
-        if not any(c.islower() for c in password):
-            messages.error(request,"Password must contain at least one lowercase letter!!!")
-            return redirect('register')
-        if not any(c.isdigit() for c in password):
-            messages.error(request,"Password must contain at least one digit!!!")
-            return redirect('register')
-        if not any(c in "!@#$%^&*()-+" for c in password):
-            messages.error(request,"Password must contain at least one special character!!!")
-            return redirect('register')
-        
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username is already taken!!!")
-            return redirect('register')
+    message = ""
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            response = requests.post(
+                "http://127.0.0.1:8000/api/register/",
+                json=form.cleaned_data
+            )
+            return redirect('login')
+        print("Status Code:", response.status_code)
+        print("Response Text:", response.text)
+        try:
+            data = response.json()
+            message = data.get("message", data)
+        except Exception:
+                message = response.text
 
-        user = User.objects.create_user(
-            username=username,
-            password=password,
-            email=email,
-            first_name=fname,
-            last_name=lname,
-        )
+    else:
+        form = RegisterForm()
 
-        Profile.objects.create(user=user)
+    return render(request, "register.html", {
+        "form": form,
+        "message": message
+    })
 
-        messages.success(request, "Account created successfully!!!")
-        return redirect('login_')
-    return render(request, 'register.html')
 
-def login_(request):
-    if request.method=='POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        requests.post('')
-        
-    return render(request,'login_.html')
 
-def logout_(request):
-    logout(request)
-    messages.success(request,'logout successfull!!!!!!!')
-    return redirect('login_')
+def login(request):
+    message = ""
+
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            print(form.cleaned_data)
+
+            response = requests.post(
+                "http://127.0.0.1:8000/api/login/",
+                json=form.cleaned_data
+            )
+
+            if response.status_code == 200:
+                data = response.json()
+
+                # Store JWT tokens in session
+                request.session["access"] = data.get("access")
+                request.session["refresh"] = data.get("refresh")
+
+                return redirect("profile")
+
+            print("Status Code:", response.status_code)
+            print("Response Text:", response.text)
+
+            try:
+                data = response.json()
+                message = data.get("message", data)
+            except Exception:
+                message = response.text
+
+    else:
+        form = LoginForm()
+
+    return render(request, "login.html", {
+        "form": form,
+        "message": message
+    })
 
 def profile(request):
-    profile, created = Profile.objects.get_or_create(user=request.user)
-    return render(request,'profile.html', {'profile': profile})
+    access = request.session.get("access")
 
-def reset(request):
-    if request.method=='POST':
-        if 'old_pass' in request.POST:
-            old_pass=request.POST['old_pass']
-            user=request.user
-            u=authenticate(username=user,password=old_pass)
-            print(u)
-            if u:
-                return render(request,'reset.html',{'new':True})
-            else:
-                messages.error(request,'enterd old pass is wrong!!!!!!')
-                return redirect('reset')
-        
-    if 'new_pass' in request.POST:
-        new_pass=request.POST['new_pass']
-        user=User.objects.get(username=request.user)
-        user.set_password(new_pass)
-        update_session_auth_hash(request,user)
-        user.save()
-        messages.success(request,'passward updated successfully!!!')
-        return redirect('profile')
-    return render(request,'reset.html')
+    response = requests.get(
+        "http://127.0.0.1:8000/api/profile/",
+        headers={
+            "Authorization": f"Bearer {access}"
+        }
+    )
 
-def forget(request):
-    if request.method=='POST':
-        if 'username' in request.POST:
-            username=request.POST['username']
-            try:
-                user=User.objects.get(username=username)
-                request.session['fp_user']=user.username
-                return render(request,'forget.html',{'new':True})
-            except:
-                messages.error(request,'user doest exist!!!')
-                return redirect(forget)
-            
-    if 'fnew_pass' in request.POST:
-        fnew_pass=request.POST['fnew_pass']
-        cfnew_pass=request.POST['cfnew_pass']
-        username=request.session.get('fp_user')
-        if not username:
-            messages.error(request,'session got expierd...!!')
-            return redirect('forget')
-        
-        u=User.objects.get(username=username)
-        if u.check_password(fnew_pass):
-            messages.error(request,'New password cannot be same as old password.!!!')
-            return redirect('forget')
-        
-        if fnew_pass != cfnew_pass:
-            messages.error(request,'Passwords do not match.')
-            return redirect('forget')
+    data = {}
 
-        u.set_password(fnew_pass)
-        u.save()
-        del request.session['fp_user']
-        messages.success(request,'password changend successfully!!!')
-        return redirect('login_')
-    return render(request,'forget.html')
+    if response.status_code == 200:
+        data = response.json()
+
+    return render(request, "profile.html", {
+        "profile": data
+    })
+
+
+
+import requests
+from django.shortcuts import render
+
+import requests
+from django.shortcuts import render
 
 def update(request):
-    user = request.user
-    profile, created = Profile.objects.get_or_create(user=user)
 
-    if request.method == 'POST':
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
-        user.email = request.POST['email']
-        user.username = request.POST['username']
-        user.save()
+    message = ""
 
-        if 'profile_picture' in request.FILES:
-            profile.profile_picture = request.FILES['profile_picture']
-            profile.save()
+    access = request.session.get("access")
 
-        messages.success(request, 'Profile updated!!!!')
-        return redirect('profile')
+    headers = {
+        "Authorization": f"Bearer {access}"
+    }
 
-    return render(request, 'update.html', {
-        'data': user,
-        'profile': profile
+    # ---------------- UPDATE ----------------
+
+    if request.method == "POST":
+
+        form = UpdateProfileForm(
+            request.POST,
+            request.FILES
+        )
+
+        if form.is_valid():
+
+            data = {
+                "first_name": form.cleaned_data["first_name"],
+                "last_name": form.cleaned_data["last_name"],
+                "email": form.cleaned_data["email"],
+                "phone": form.cleaned_data["phone"],
+                "address": form.cleaned_data["address"],
+                "city": form.cleaned_data["city"],
+                "state": form.cleaned_data["state"],
+                "pincode": form.cleaned_data["pincode"],
+            }
+
+            files = {}
+
+            if "profile_image" in request.FILES:
+                files["profile_image"] = request.FILES["profile_image"]
+
+            response = requests.put(
+                "http://127.0.0.1:8000/api/update-profile/",
+                data=data,
+                files=files,
+                headers=headers
+            )
+
+            try:
+                result = response.json()
+                message = result.get("message", result)
+
+            except Exception:
+                message = response.text
+
+    # ---------------- GET PROFILE ----------------
+
+    response = requests.get(
+        "http://127.0.0.1:8000/api/profile/",
+        headers=headers
+    )
+
+    profile = {}
+
+    if response.status_code == 200:
+
+        profile = response.json()
+
+        form = UpdateProfileForm(initial={
+
+            "first_name": profile.get("first_name"),
+
+            "last_name": profile.get("last_name"),
+
+            "email": profile.get("email"),
+
+            "phone": profile.get("phone"),
+
+            "address": profile.get("address"),
+
+            "city": profile.get("city"),
+
+            "state": profile.get("state"),
+
+            "pincode": profile.get("pincode"),
+
+        })
+
+    return render(
+        request,
+        "update.html",
+        {
+            "form": form,
+            "profile": profile,
+            "message": message
+        }
+    )
+
+import requests
+from django.shortcuts import render
+
+def change_password(request):
+
+    message = ""
+
+    access = request.session.get("access")
+
+    if request.method == "POST":
+
+        form = ChangePasswordForm(request.POST)
+
+        if form.is_valid():
+
+            print(form.cleaned_data)
+
+            response = requests.post(
+                "http://127.0.0.1:8000/api/change-password/",
+                json=form.cleaned_data,
+                headers={
+                    "Authorization": f"Bearer {access}"
+                }
+            )
+
+            try:
+                data = response.json()
+
+                if "message" in data:
+                    message = data["message"]
+                elif "error" in data:
+                    message = data["error"]
+                else:
+                    message = data
+
+            except Exception:
+                message = response.text
+
+    else:
+        form = ChangePasswordForm()
+
+    return render(request, "change_password.html", {
+        "form": form,
+        "message": message
     })
+
+def forgot_password(request):
+    message = ""
+    show_reset = False
+
+    if request.method == "POST":
+
+        form = ForgotPasswordForm(request.POST)
+
+        if form.is_valid():
+
+            response = requests.post(
+                "http://127.0.0.1:8000/api/forgot-password/",
+                json=form.cleaned_data
+            )
+
+            try:
+                data = response.json()
+
+                if "message" in data:
+                    message = data["message"]
+                    show_reset = True
+
+                    # Save email so it can be used later
+                    request.session["reset_email"] = form.cleaned_data["email"]
+
+                else:
+                    message = data["error"]
+                    show_reset = False
+
+            except:
+                message = response.text
+                show_reset = False
+
+    else:
+        form = ForgotPasswordForm()
+
+    return render(request, "forgot_password.html", {
+        "form": form,
+        "message": message,
+        "show_reset": show_reset,
+    })
+
+
+def reset_password(request):
+    message = ""
+
+    if request.method == "POST":
+        form = ResetPasswordForm(request.POST)
+
+        if form.is_valid():
+            print(form.cleaned_data)
+
+            response = requests.post(
+                "http://127.0.0.1:8000/api/reset-password/",
+                json=form.cleaned_data
+            )
+
+            try:
+                data = response.json()
+                message = data.get("message", data)
+            except Exception:
+                message = response.text
+
+    else:
+        form = ResetPasswordForm()
+
+    return render(request, "reset_password.html", {
+        "form": form,
+        "message": message
+    })
+
+
+def logout(request):
+    request.session.flush()
+    return redirect("login")
