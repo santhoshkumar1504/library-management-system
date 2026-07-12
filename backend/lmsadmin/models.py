@@ -38,9 +38,10 @@ class Book(models.Model):
         related_name="books"
     )
 
-    authors = models.ManyToManyField(
+    authors = models.ForeignKey(
     Author,
-    related_name="books"
+    on_delete=models.CASCADE,
+    null=True
     )
 
     publisher = models.ForeignKey(
@@ -73,3 +74,4 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+    
