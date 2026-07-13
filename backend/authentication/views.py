@@ -16,6 +16,7 @@ from .serializers import (
     ChangePasswordSerializer,
     ForgotPasswordSerializer,
     ResetPasswordSerializer,
+    UserSerializer
 )
 
 @api_view(['POST','GET'])
@@ -86,37 +87,56 @@ def logout(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def profile(request):
-
-    profile = Profile.objects.get(user=request.user)
-
-    serializer = ProfileSerializer(profile)
-
+    try:
+        profile = Profile.objects.get(user=request.user)
+        serializer = ProfileSerializer(profile)
+    except:
+        profile=User.objects.get(username=request.user)
+        serializer=UserSerializer(profile)
+        return Response(serializer.data)
     return Response(serializer.data)
-
-@api_view(['PUT'])
+@api_view(['PUT','GET'])
 @permission_classes([IsAuthenticated])
 def update_profile(request):
+    try:
+        profile = Profile.objects.get(user=request.user)
+        if request.method == 'GET':
+            serializer = ProfileSerializer(profile)
+            return Response(serializer.data)
 
-    profile = Profile.objects.get(user=request.user)
+        if request.method=='PUT':
+            serializer = ProfileSerializer(
+                profile,
+                data=request.data,
+                partial=True
+            )
 
-    if request.method == 'GET':
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
+            if serializer.is_valid():
+                serializer.save()
 
-    serializer = ProfileSerializer(
-        profile,
-        data=request.data,
-        partial=True
-    )
+                return Response({
+                    "message": "Profile Updated Successfully",
+                    "data": serializer.data
+                })
+    except:
+        profile=User.objects.get(username=request.user)
+        if request.method=='GET':
+            res=UserSerializer(profile)
+            return Response(res.data)
+        if request.method=='PUT':
+            serializer = ProfileSerializer(
+                profile,
+                data=request.data,
+                partial=True
+            )
 
-    if serializer.is_valid():
-        serializer.save()
+            if serializer.is_valid():
+                serializer.save()
 
-        return Response({
-            "message": "Profile Updated Successfully",
-            "data": serializer.data
-        })
-
+                return Response({
+                    "message": "Profile Updated Successfully",
+                    "data": serializer.data
+                })
     return Response(serializer.errors, status=400)
 
 @api_view(['POST'])

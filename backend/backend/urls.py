@@ -22,13 +22,21 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('authentication.urls')),
+<<<<<<< HEAD
     path('api-auth/', include('rest_framework.urls')), 
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('lmsadmin.urls')),
+=======
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/admin/',include('lmsadmin.urls')), 
+    path('api/members/',include('members.urls'))    
+>>>>>>> 66c272998dcf83ca38a291272a3494539af5e351
 ]
+
+
 
 if settings.DEBUG:
     urlpatterns += static(

@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'auth_user',
     'lmsadminfrontend'
+=======
+    'base',
+    'auth_user'
+>>>>>>> 66c272998dcf83ca38a291272a3494539af5e351
 ]
 
 MIDDLEWARE = [
@@ -117,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS=[
+    BASE_DIR/'static'
+]

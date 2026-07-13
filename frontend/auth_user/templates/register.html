@@ -1,24 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Register</title>
-</head>
-<body>
 
-<h2>Student Registration</h2>
+{% extends 'main.html' %}
 
-<form method="POST">
-    {% csrf_token %}
+{% block title %}
+{% endblock %}
 
-    {{ form.as_p }}
+{% block content %}
+    <div class="container">
+    <h2>Student Registration</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+    
+        {{ form.as_p }}
+    
+        <button type="submit" class="btn btn-success">
+            Register
+        </button>
+    
+    </form>
+    
+    {{ message }}
+</div>
+{% endblock %}
 
-    <button type="submit">
-        Register
-    </button>
 
-</form>
-
-{{ message }}
-
-</body>
-</html>

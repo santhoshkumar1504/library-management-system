@@ -74,22 +74,20 @@ def login(request):
 
 def profile(request):
     access = request.session.get("access")
-
     response = requests.get(
         "http://127.0.0.1:8000/api/profile/",
         headers={
             "Authorization": f"Bearer {access}"
         }
     )
-
     data = {}
-
     if response.status_code == 200:
         data = response.json()
 
     return render(request, "profile.html", {
         "profile": data
     })
+
 
 
 
@@ -182,6 +180,8 @@ def update(request):
             "pincode": profile.get("pincode"),
 
         })
+    else:
+        form=UpdateProfileForm()
 
     return render(
         request,

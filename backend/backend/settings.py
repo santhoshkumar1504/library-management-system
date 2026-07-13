@@ -40,8 +40,14 @@ INSTALLED_APPS = [
     'authentication',
     'rest_framework',
     'rest_framework_simplejwt',
+<<<<<<< HEAD
   
     'lmsadmin',
+=======
+    'lmsadmin',
+    'members'
+
+>>>>>>> 66c272998dcf83ca38a291272a3494539af5e351
 ]
 
 MIDDLEWARE = [
@@ -122,9 +128,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS=[
     BASE_DIR/'static'
 ]
+
+
 MEDIA_URL = '/image/'
 MEDIA_ROOT = BASE_DIR / 'static/image'
 
@@ -140,4 +149,12 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
+}
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }

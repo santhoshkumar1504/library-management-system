@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'main.html' %}
+
+{% block title %}
     <title>Update Profile</title>
-</head>
-<body>
+{% endblock %}
 
-<h2>Update Profile</h2>
+{% block content %}
+    <div class="container">
 
-{% if profile.profile_image %}
+        <h2>Update Profile</h2>
+        
+        {% if profile.profile_image %}
+        
+        <img src="http://127.0.0.1:8000{{ profile.profile_image }}"
+        width="150"
+        height="150">
+        
+        <br><br>
+        
+        {% endif %}
+        
+        <form method="POST" enctype="multipart/form-data">
+        
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <button type="submit" class="btn btn-outline-primary">
+        
+        Update Profile
+        
+        </button>
+        
+        </form>
+        
+        <br>
+        
+        {{ message }}
+    </div>
+{% endblock %}
 
-<img src="http://127.0.0.1:8000{{ profile.profile_image }}"
-width="150"
-height="150">
 
-<br><br>
 
-{% endif %}
-
-<form method="POST" enctype="multipart/form-data">
-
-{% csrf_token %}
-
-{{ form.as_p }}
-
-<button type="submit">
-
-Update Profile
-
-</button>
-
-</form>
-
-<br>
-
-{{ message }}
-
-</body>
-</html>
