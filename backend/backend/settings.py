@@ -37,15 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'authentication',
     'rest_framework',
     'rest_framework_simplejwt',
   
-=======
     'lmsadmin',
-    'rest_framework'
->>>>>>> origin/lms
 ]
 
 MIDDLEWARE = [

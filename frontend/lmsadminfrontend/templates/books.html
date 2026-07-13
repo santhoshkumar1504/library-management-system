@@ -1,0 +1,21 @@
+{% for book in books %}
+<tr>
+    <td>{{ book.title }}</td>
+    <td>{{ book.isbn }}</td>
+    <td>{{ book.category.name }}</td>
+    <td>{{ book.publisher.name }}</td>
+
+    <td>
+        {% for author in book.authors %}
+            {{ author.name }}<br>
+        {% endfor %}
+    </td>
+
+    <td>{{ book.edition }}</td>
+    <td>{{ book.language }}</td>
+    <td>{{ book.published_year }}</td>
+    <td>{{ book.total_copies }}</td>
+    <td>{{ book.available_copies }}</td>
+    <td>{{ book.shelf_number }}</td>
+</tr>
+{% endfor %}
