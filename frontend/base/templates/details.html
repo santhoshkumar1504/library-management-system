@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+<title>Details</title>
+<link rel="stylesheet" href="{% static 'styles/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row detail-row my-2">
+        
+        <div class="col-12 col-xl-6">
+            <img src="http://localhost:8000/static{{i.cover_image}}"
+                alt="">
+        </div>
+        <div class="col-12 col-xl-6">
+            <span class="badge bg-success">{{i.category.name}}</span>
+            <h1>{{i.title}}</h1>
+            <h3>{{i.authors.name}}</h3>
+            <p>{{i.description}}</p>
+            <div>Available Copies: <span class="badge bg-primary">{{i.available_copies}}</span></div>
+            <div class="details">
+                <p>Language: {{i.language}}</p>
+            </div>
+            <div class="btns">
+                <a href="" class="btn btn-dark my-2"><i class="bi bi-book-fill me-1"></i>Borrow Book</a>
+                <a href="" class="btn btn-outline-dark my-2"><i class="bi bi-file-earmark-ppt-fill me-1"></i>Reserve Copy</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row row-other-detail">
+        <div class="card col-md-3 m-2 p-2">
+            <div class="icons-book"><i class="bi bi-journal-bookmark-fill"></i></div>
+            {{i.available_copies}} Copies Available
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width:{{width}}" aria-valuenow="{{percent}}" aria-valuemin="0"
+                    aria-valuemax="100">{{i.available_copies}}</div>
+            </div>
+        </div>
+        <div class="card col-md-3 m-2 p-2">
+            <div class="icons-book"><i class="bi bi-chat-left-text-fill"></i></div>
+            <div class="fw-bold">Reader Insights</div>
+            <div>Average Completion time: 10 days</div>
+        </div>
+        <div class="card col-md-3 m-2 p-2">
+            <div class="icons-book"><i class="bi bi-info-square-fill"></i></div>
+            <div>
+                <div class="fw-bold">Edition Info</div>            
+                <div>ISBN: {{i.isbn}}</div><div>Edition: {{i.edition}} | Year: {{i.published_year}}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row similar-book-row">
+        <h1>Similar Books</h1>
+        <div class="col-6 col-md-4 col-lg-3 card">
+            <img src="https://webneel.com/sites/default/files/images/download/thumb/old-book-with-blank-cover%201_0.jpg" alt="">
+            <h1>Spider Man</h1>
+            <div class="ms-2 mb-1">Author: <b>Peter</b></div>
+            <a href="" class="stretched-link btn btn-dark">View Details</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
