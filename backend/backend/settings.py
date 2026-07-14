@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'lmsadmin',
     'authentication',
     'rest_framework',
+<<<<<<< Updated upstream
 
     
     'members'
@@ -50,6 +51,16 @@ INSTALLED_APPS = [
 
     'lmsadmin',
     'members'
+
+    
+    'members'
+    'rest_framework_simplejwt',
+
+  
+    'lmsadmin',
+    'lmsadmin',
+    'members'
+
 ]
 
 MIDDLEWARE = [
