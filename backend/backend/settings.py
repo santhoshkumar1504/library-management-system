@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,8 +43,117 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'lmsadmin',
     'members'
-
 ]
+
+
+JAZZMIN_SETTINGS = {
+
+    "site_title": "Library Admin",
+
+    "site_header": "Library Management",
+
+    "site_brand": "📚 LMS",
+
+    "site_logo": "image/lms.png",
+
+    "welcome_sign": "Welcome to Library Management System",
+
+    "copyright": "Santosh Kumar",
+
+    "search_model": [
+        "auth.User",
+        "base.Book",
+        "base.Reservation"
+    ],
+
+    "topmenu_links": [
+
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+
+        {"model": "auth.User"},
+
+        {"app": "base"},
+    ],
+
+    "show_sidebar": True,
+
+    "navigation_expanded": True,
+
+    "hide_apps": [],
+
+    "hide_models": [],
+
+    "order_with_respect_to": [
+        "base",
+        "auth"
+    ],
+
+    "icons": {
+        "auth": "fas fa-users-cog",
+
+        "auth.user": "fas fa-user",
+
+        "base.book": "fas fa-book",
+
+        "base.author": "fas fa-feather",
+
+        "base.publisher": "fas fa-building",
+
+        "base.bookcategory": "fas fa-list",
+
+        "base.reservation": "fas fa-calendar-check",
+
+        "base.issued": "fas fa-book-reader",
+
+        "base.finemodel": "fas fa-money-bill-wave",
+    },
+
+    "default_icon_parents": "fas fa-folder",
+
+    "default_icon_children": "fas fa-file",
+
+    "show_ui_builder": True,
+}
+
+JAZZMIN_UI_TWEAKS = {
+
+    "theme": "lux",
+
+    "dark_mode_theme": "superhero",
+
+    "navbar": "navbar-dark navbar-primary",
+
+    "brand_colour": "navbar-primary",
+
+    "accent": "accent-primary",
+
+    "sidebar": "sidebar-dark-primary",
+
+    "sidebar_nav_small_text": False,
+
+    "sidebar_disable_expand": False,
+
+    "sidebar_nav_child_indent": True,
+
+    "sidebar_nav_compact_style": False,
+
+    "sidebar_nav_legacy_style": False,
+
+    "sidebar_nav_flat_style": False,
+
+    "sidebar_nav_indent_style": False,
+
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

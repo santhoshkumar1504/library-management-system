@@ -2,6 +2,10 @@ from django.urls import path
 from .views import *
 
 urlpatterns=[
+
+    #buy_book
+    path('buy_book/',buy_book),
+    
     # borrows
     path('borrows/',borrows),
     path('borrow/<int:id>',borrowBook),

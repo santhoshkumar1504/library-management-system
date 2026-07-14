@@ -53,7 +53,7 @@ def login(request):
                 request.session["access"] = data.get("access")
                 request.session["refresh"] = data.get("refresh")
 
-                return redirect("profile")
+                return redirect("home")
 
             print("Status Code:", response.status_code)
             print("Response Text:", response.text)
@@ -140,6 +140,8 @@ def update(request):
                 files=files,
                 headers=headers
             )
+            if(response.status_code==200):
+                return redirect("profile")
 
             try:
                 result = response.json()

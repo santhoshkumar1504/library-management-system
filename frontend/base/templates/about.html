@@ -1,0 +1,124 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+    <title>About</title>
+    <link rel="stylesheet" href="{% static 'styles/about.css' %}">
+{% endblock %}
+{% block content %}
+<section class="about-section">
+    <div class="about-container">
+
+        <div class="about-header">
+            <h1 class="about-title">About Our Library</h1>
+            <p class="about-subtitle">
+                A modern Library Management System designed to simplify book management,
+                borrowing, and reading for students, faculty, and library staff.
+            </p>
+        </div>
+
+        <div class="about-content">
+
+            <div class="about-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNVyIRu0RIqq2HLpWMhK2x78shFwKHJSIWgCn7cK1sBEy_YuTh0sumt5A&s=10" alt="Library">
+            </div>
+
+            <div class="about-description">
+                <h2 class="section-title">Who We Are</h2>
+                <p class="section-text">
+                    Our Library Management System provides an efficient way to organize,
+                    manage, and access books digitally. It helps librarians maintain book
+                    inventories while allowing users to search, borrow, reserve, and track
+                    their reading history with ease.
+                </p>
+
+                <p class="section-text">
+                    Built with simplicity and performance in mind, our system ensures a
+                    seamless experience for both administrators and library members.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="features-section">
+
+            <h2 class="section-title">Key Features</h2>
+
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">Book Catalog</h3>
+                    <p class="feature-description">
+                        Browse thousands of books with advanced search and filtering options.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Smart Search</h3>
+                    <p class="feature-description">
+                        Quickly find books by title, author, category, or ISBN.
+                    </p>
+                </div>
+
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Availability Status</h3>
+                    <p class="feature-description">
+                        Check book availability and remaining copies instantly.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3 class="feature-title">User Accounts</h3>
+                    <p class="feature-description">
+                        Manage personal profiles, borrowed books, and reading history.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mission-section">
+
+            <h2 class="section-title">Our Mission</h2>
+
+            <p class="section-text">
+                We aim to make knowledge easily accessible through a secure, reliable,
+                and user-friendly digital library platform. By streamlining library
+                operations, we encourage learning, reading, and efficient resource
+                management for everyone.
+            </p>
+
+        </div>
+
+        <div class="stats-section">
+
+            <div class="stat-card">
+                <h2 class="stat-number">10K+</h2>
+                <p class="stat-label">Books Available</p>
+            </div>
+
+            <div class="stat-card">
+                <h2 class="stat-number">2K+</h2>
+                <p class="stat-label">Active Members</p>
+            </div>
+
+            <div class="stat-card">
+                <h2 class="stat-number">500+</h2>
+                <p class="stat-label">Authors</p>
+            </div>
+
+            <div class="stat-card">
+                <h2 class="stat-number">100%</h2>
+                <p class="stat-label">Digital Management</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
