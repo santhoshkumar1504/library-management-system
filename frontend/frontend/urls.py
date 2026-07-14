@@ -20,6 +20,11 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
+    path("auth/", include("auth_user.urls")),
+    path('lsmadmin/',include("lmsadminfrontend.urls"))
+=======
     path("", include("auth_user.urls")),
     path('base/',include('base.urls'))
+>>>>>>> 66c272998dcf83ca38a291272a3494539af5e351
 ]

@@ -40,7 +40,15 @@ INSTALLED_APPS = [
     'lmsadmin',
     'authentication',
     'rest_framework',
+
     
+    'members'
+
+    'rest_framework_simplejwt',
+  
+    'lmsadmin',
+
+    'lmsadmin',
     'members'
 ]
 
