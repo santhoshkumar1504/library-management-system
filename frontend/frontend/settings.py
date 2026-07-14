@@ -37,13 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'auth_user',
-    'lmsadminfrontend'
-=======
+    'lmsadminfrontend',
     'base',
-    'auth_user'
->>>>>>> 66c272998dcf83ca38a291272a3494539af5e351
+    
 ]
 
 MIDDLEWARE = [

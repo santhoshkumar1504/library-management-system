@@ -50,6 +50,15 @@ def search(request,name):
     return Response(status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def bookByCateogory(request,id):
+    model_data=get_object_or_404(Book,id=id)
+    data=Book.objects.filter(category=model_data.category)
+    if request.method=='GET':
+        res=BookSerializer(data,many=True)
+        return Response(res.data)
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
 @api_view(['GET','POST'])
 def categories(request):
     if request.method=='GET':

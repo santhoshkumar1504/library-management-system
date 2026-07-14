@@ -1,12 +1,15 @@
 
 {% extends 'main.html' %}
+{% load static %}
 
 {% block title %}
+<title>Register</title>
+<link rel="stylesheet" href="{% static 'styles/formstyle.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-    <h2>Student Registration</h2>
+    <div class="container form-container">
+    <h2>User Registration</h2>
     
     <form method="POST">
         {% csrf_token %}

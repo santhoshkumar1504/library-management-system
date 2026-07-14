@@ -9,6 +9,7 @@ urlpatterns=[
 
     # for searching
     path('search/<name>',search),
+    path('similarbooks/<int:id>',bookByCateogory),
 
     # categories
     path('categories/',categories),

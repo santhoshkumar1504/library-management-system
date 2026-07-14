@@ -25,7 +25,6 @@ class BookSerializer(serializers.ModelSerializer):
     category = BookCategorySerializer(read_only=True)
 
     authors = AuthorSerializer(
-        many=True,
         read_only=True
     )
 

@@ -4,6 +4,37 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import IssuedSerializers, ReservationSerializers, FineSerializers, BookCopySerailizers
+from lmsadmin.models import Book
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+
+@api_view(['POST','GET'])
+def buy_book(request):
+    try:
+        if request.method=='POST':
+            id=request.data
+            user=id['uname']
+            book=Book.objects.get(id=id['id'])
+            cur_date=timezone.now()
+            new=User.objects.get(username=user)
+            try:
+                exist=Reservation.objects.filter(member_id=new.id,book_id=book.id,expiry_date__lt=cur_date)
+                if exist.exists():
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    Reservation.objects.create(
+                        book=book,
+                        member=new,
+                    )
+                    book.available_copies=book.available_copies-1
+                    book.save()
+                    return Response(status=status.HTTP_201_CREATED)
+            except:
+               return Response(status=status.HTTP_401_UNAUTHORIZED) 
+    except:
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['GET','POST'])
 def borrows(request):
@@ -75,18 +106,24 @@ def book(request,id):
 
 
 
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def reservedBooks(request):
-    if request.method=='GET':
-        data=Reservation.objects.filter(member=request.user)
-        des=ReservationSerializers(data,many=True)
-        return Response(des.data)
-    if request.method=='POST':
-        newReserve=request.data
-        des=ReservationSerializers(data=newReserve)
-        if des.is_valid():
-            des.save()
-            return Response(status=status.HTTP_201_CREATED)
+    username = request.data.get('uname')
+    if not username:
+        return Response(
+            {"error": "Username is required"},
+            status=400
+        )
+    u = User.objects.filter(username=username).first()
+    if not u:
+        return Response(
+            {"error": "User not found"},
+            status=404
+        )
+    reservations = Reservation.objects.filter(member=u)
+    serializer = ReservationSerializers(reservations, many=True)
+    return Response(serializer.data)
+
 
 @api_view(['GET','PUT','DELETE'])
 def reserveBook(request,id):

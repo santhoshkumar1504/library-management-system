@@ -1,13 +1,14 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block title %}
     <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'styles/profilestyle.css' %}">
+
 {% endblock %}
 
 {% block content %}
     <div class="container">
-
-        <h2>Student Profile</h2>
         
         {% if profile.profile_image %}
         
@@ -19,39 +20,48 @@
         
         {% endif %}
         
-        <p>First Name : {{ profile.first_name }}</p>
-        
-        <p>Last Name : {{ profile.last_name }}</p>
-        
-        <p>Username : {{ profile.username }}</p>
-        
-        <p>Email : {{ profile.email }}</p>
-        
-        <p>Phone : {{ profile.phone }}</p>
-        
-        <p>Address : {{ profile.address }}</p>
-        
-        <p>City : {{ profile.city }}</p>
-        
-        <p>State : {{ profile.state }}</p>
-        
-        <p>Pincode : {{ profile.pincode }}</p>
-        
-        <a href="{% url 'update' %}">
-        Update Profile
-        </a>
-        
-        <br><br>
-        
-        <a href="{% url 'change_password' %}">
-        Change Password
-        </a>
-        
-        <br><br>
-        
-        <a href="{% url 'logout' %}">
-        Logout
-        </a>
+        {% if profile %}
+        <div class="container">
+            
+            <h2>Student Profile</h2>
+            <div class="group1">
+            <p>First Name : {{ profile.first_name }}</p>
+            <p>Last Name : {{ profile.last_name }}</p>
+            </div>
+            <div class="group1">
+            <p>Username : {{ profile.username }}</p>
+            <p>Email : {{ profile.email }}</p>
+            </div>
+            <div class="group1">
+            <p>Phone : {{ profile.phone }}</p>
+            <p>Address : {{ profile.address }}</p>
+            </div>
+            <div class="group1">
+            <p>City : {{ profile.city }}</p>
+            <p>State : {{ profile.state }}</p>
+            </div>
+            <div class="group1">
+                <p>Pincode : {{ profile.pincode }}</p>
+
+            </div>
+            
+            <a href="{% url 'update' %}">
+            Update Profile
+            </a>
+            
+            <a href="{% url 'change_password' %}">
+            Change Password
+            </a>
+                        
+            <a href="{% url 'logout' %}">
+            Logout
+            </a>
+        </div>
+        {% else %}
+         <div class="container">
+            <img src="https://www.bluehost.com/blog/wp-content/uploads/2023/06/Troubleshooting-401-errors.png" alt="" width="200px" height="200px">
+         </div>
+        {% endif %}
     </div>
 {% endblock %}
 

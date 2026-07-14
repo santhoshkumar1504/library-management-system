@@ -9,7 +9,7 @@ BASE_URL = "http://127.0.0.1:8000/api/"
 
 
 def home(request):
-    return render(request, "home.html")
+    return render(request, "homeadmin.html")
 
 
 def books(request):

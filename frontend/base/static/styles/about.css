@@ -1,0 +1,305 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#f5f7fa,#e8eef8,#ffffff);
+    color:#2d3748;
+}
+
+/* =======================
+        ABOUT SECTION
+========================== */
+
+.about-section{
+    padding:80px 8%;
+}
+
+.about-container{
+    max-width:1400px;
+    margin:auto;
+}
+
+/* =======================
+        HEADER
+========================== */
+
+.about-header{
+    text-align:center;
+    margin-bottom:70px;
+}
+
+.about-title{
+    font-size:3rem;
+    font-weight:700;
+    color:#1f2937;
+    margin-bottom:15px;
+}
+
+.about-subtitle{
+    max-width:750px;
+    margin:auto;
+    font-size:1.1rem;
+    color:#6b7280;
+    line-height:1.8;
+}
+
+/* =======================
+    ABOUT CONTENT
+========================== */
+
+.about-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:60px;
+    margin-bottom:90px;
+}
+
+.about-image{
+    flex:1;
+}
+
+.about-image img{
+    width:100%;
+    border-radius:25px;
+    object-fit:cover;
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+    transition:.5s;
+}
+
+.about-image img:hover{
+    transform:scale(1.03);
+}
+
+.about-description{
+    flex:1;
+}
+
+.section-title{
+    font-size:2rem;
+    margin-bottom:20px;
+    color:#111827;
+}
+
+.section-text{
+    font-size:1rem;
+    color:#4b5563;
+    line-height:1.9;
+    margin-bottom:20px;
+}
+
+/* =======================
+        FEATURES
+========================== */
+
+.features-section{
+    margin-bottom:90px;
+}
+
+.features-section .section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.feature-card{
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.5);
+    border-radius:20px;
+    padding:35px 25px;
+    transition:.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.feature-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 40px rgba(37,99,235,.18);
+}
+
+.feature-icon{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2rem;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:white;
+    margin-bottom:20px;
+}
+
+.feature-title{
+    font-size:1.25rem;
+    font-weight:600;
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.feature-description{
+    color:#6b7280;
+    line-height:1.8;
+}
+
+/* =======================
+        MISSION
+========================== */
+
+.mission-section{
+    background:white;
+    padding:60px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    margin-bottom:90px;
+}
+
+.mission-section .section-text{
+    max-width:850px;
+    margin:auto;
+}
+
+/* =======================
+        STATS
+========================== */
+
+.stats-section{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.stat-card{
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+    border-radius:20px;
+    transition:.4s;
+    box-shadow:0 15px 30px rgba(37,99,235,.25);
+}
+
+.stat-card:hover{
+    transform:translateY(-8px);
+}
+
+.stat-number{
+    font-size:2.6rem;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.stat-label{
+    font-size:1rem;
+    letter-spacing:.5px;
+}
+
+/* =======================
+        RESPONSIVE
+========================== */
+
+@media(max-width:1100px){
+
+.about-content{
+    gap:40px;
+}
+
+.about-title{
+    font-size:2.6rem;
+}
+
+}
+
+@media(max-width:900px){
+
+.about-content{
+    flex-direction:column;
+}
+
+.about-description{
+    text-align:center;
+}
+
+.about-title{
+    font-size:2.4rem;
+}
+
+.section-title{
+    font-size:1.8rem;
+}
+
+}
+
+@media(max-width:768px){
+
+.about-section{
+    padding:60px 6%;
+}
+
+.about-title{
+    font-size:2rem;
+}
+
+.about-subtitle{
+    font-size:1rem;
+}
+
+.feature-card{
+    padding:30px 20px;
+}
+
+.mission-section{
+    padding:40px 25px;
+}
+
+.stat-number{
+    font-size:2.2rem;
+}
+
+}
+
+@media(max-width:500px){
+
+.about-title{
+    font-size:1.7rem;
+}
+
+.section-title{
+    font-size:1.5rem;
+}
+
+.about-subtitle,
+.section-text,
+.feature-description{
+    font-size:.95rem;
+}
+
+.feature-icon{
+    width:60px;
+    height:60px;
+    font-size:1.6rem;
+}
+
+.stat-card{
+    padding:30px 15px;
+}
+
+}
+
+
+
+
+
